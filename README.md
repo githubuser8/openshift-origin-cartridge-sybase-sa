@@ -1,4 +1,4 @@
-openshift-origin-cartridge-sybase-sa
-====================================
+SAP-SQLAnywhere
+===============
 
-OpenShift Cartridge for SAP SQLAnywhere
+Cartridge for SAP SQLAnywhere
