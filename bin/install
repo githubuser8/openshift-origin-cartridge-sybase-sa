@@ -24,8 +24,6 @@ set_env_var 'SA_DB_NAME' ${SA_DB_NAME} $env_dir
 set_env_var 'SA_USERNAME' ${SA_USERNAME} $env_dir
 set_env_var 'SA_PASSWORD' ${SA_PASSWORD} $env_dir
 
-LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
-PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
 SATMP=/tmp; export SATMP
 echo 'Environment Variables configured'
 

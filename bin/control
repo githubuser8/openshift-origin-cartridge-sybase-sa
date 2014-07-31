@@ -1,7 +1,5 @@
 #!/bin/bash
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
-LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
-PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
 
 function check_license {
 # Display License File
@@ -31,8 +29,6 @@ function _stop_sa {
 }
 
 function _is_running {
-  LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
-  PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
   dbping -q -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${OPENSHIFT_SA_DB_PORT})" &> /dev/null
   return $?
 }
@@ -102,8 +98,6 @@ function pre_snapshot {
     rm -rf $OPENSHIFT_DATA_DIR/SAbackup
   fi
   mkdir $OPENSHIFT_DATA_DIR/SAbackup
-  LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
-  PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
   dbbackup -s -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${OPENSHIFT_SA_DB_PORT})" $OPENSHIFT_DATA_DIR/SAbackup 
 
   # Backup the accepted_license file
