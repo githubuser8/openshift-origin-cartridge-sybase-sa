@@ -20,11 +20,9 @@ env_dir="${OPENSHIFT_SA_DIR}/env"
 SA_DB_NAME=demo
 SA_USERNAME=dba
 SA_PASSWORD=sql
-SA_DB_PORT=2638
 set_env_var 'SA_DB_NAME' ${SA_DB_NAME} $env_dir
 set_env_var 'SA_USERNAME' ${SA_USERNAME} $env_dir
 set_env_var 'SA_PASSWORD' ${SA_PASSWORD} $env_dir
-set_env_var 'SA_DB_PORT' ${SA_DB_PORT} $env_dir
 
 LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
 PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
@@ -48,7 +46,7 @@ client_result "DB User Password: ${SA_PASSWORD}"
 client_result ""
 client_result "DB Host: ${OPENSHIFT_SA_DB_HOST}"
 client_result ""
-client_result "DB Port: ${SA_DB_PORT}"
+client_result "DB Port: ${OPENSHIFT_SA_DB_PORT}"
 #client_result ""
 #client_result "Environment Parameters: LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64"
 #client_result "Environment Parameters: PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64"
@@ -59,6 +57,6 @@ cart_props "user=${SA_USERNAME}"
 cart_props "password=${SA_PASSWORD}"
 cart_props "database_name=${SA_DB_NAME}"
 cart_props "sa_db_host=${OPENSHIFT_SA_DB_HOST}"
-cart_props "sa_db_port=${SA_DB_PORT}"
+cart_props "sa_db_port=${OPENSHIFT_SA_DB_PORT}"
 
-set_app_info "Database Name: ${SA_DB_NAME}; DB User Name: ${SA_USERNAME}; DB User Password: ${SA_PASSWORD}; DB Host: ${OPENSHIFT_SA_DB_HOST}; DB Port: ${SA_DB_PORT}"
+set_app_info "Database Name: ${SA_DB_NAME}; DB User Name: ${SA_USERNAME}; DB User Password: ${SA_PASSWORD}; DB Host: ${OPENSHIFT_SA_DB_HOST}; DB Port: ${OPENSHIFT_SA_DB_PORT}"

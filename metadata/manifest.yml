@@ -45,7 +45,7 @@ Scaling:
 Endpoints:
   - Private-IP-Name:   DB_HOST
     Private-Port-Name: DB_PORT
-    Private-Port:      5433
+    Private-Port:      2638
     Public-Port-Name:  DB_PROXY_PORT
 Version-Overrides:
   '16':

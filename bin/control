@@ -23,17 +23,17 @@ return 0
 }
 
 function _start_sa {
-  dbspawn dbsrv16 -n ${SA_DB_NAME} -x tcpip{port=${SA_DB_PORT}} $OPENSHIFT_SA_DIR/data/sqa.db
+  dbspawn dbsrv16 -n ${SA_DB_NAME} -x tcpip{MyIP=${OPENSHIFT_SA_DB_HOST}\;port=${OPENSHIFT_SA_DB_PORT}} $OPENSHIFT_SA_DIR/data/sqa.db -n ${SA_DB_NAME}
 }
 
 function _stop_sa {
-  dbstop -y -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${SA_DB_PORT})"
+  dbstop -y -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${OPENSHIFT_SA_DB_PORT})"
 }
 
 function _is_running {
   LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
   PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
-  dbping -q -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${SA_DB_PORT})" &> /dev/null
+  dbping -q -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${OPENSHIFT_SA_DB_PORT})" &> /dev/null
   return $?
 }
 
@@ -89,7 +89,7 @@ function status {
 function pre_snapshot {
   start
   echo "${OPENSHIFT_SA_VERSION}" > $OPENSHIFT_DATA_DIR/sa_version
-#  echo "${SA_DB_PORT}" > $OPENSHIFT_DATA_DIR/sa_db_port
+#  echo "${OPENSHIFT_SA_DB_PORT}" > $OPENSHIFT_DATA_DIR/sa_db_port
 #  echo "${OPENSHIFT_SA_IDENT}" > $OPENSHIFT_DATA_DIR/sa_ident
 #  echo "${SA_DB_NAME}" > $OPENSHIFT_DATA_DIR/sa_db_name
 #  echo "${SA_USERNAME}" > $OPENSHIFT_DATA_DIR/sa_username
@@ -104,7 +104,7 @@ function pre_snapshot {
   mkdir $OPENSHIFT_DATA_DIR/SAbackup
   LD_LIBRARY_PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/lib64:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH
   PATH=$OPENSHIFT_SA_DIR/sqlanywhere${OPENSHIFT_SA_VERSION}/bin64:$PATH; export PATH
-  dbbackup -s -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${SA_DB_PORT})" $OPENSHIFT_DATA_DIR/SAbackup 
+  dbbackup -s -c "server=${SA_DB_NAME};uid=${SA_USERNAME};pwd=${SA_PASSWORD};links=tcpip(host=${OPENSHIFT_SA_DB_HOST};port=${OPENSHIFT_SA_DB_PORT})" $OPENSHIFT_DATA_DIR/SAbackup 
 
   # Backup the accepted_license file
   cp $OPENSHIFT_SA_DIR/license/license_accepted  $OPENSHIFT_DATA_DIR/SAbackup/
